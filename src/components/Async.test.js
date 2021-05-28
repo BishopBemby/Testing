@@ -9,6 +9,16 @@ describe("Async Component", ()=>{
     })
 
     test('renders component', async()=>{
+        window.fetch = jest.fn();
+
+        window.fetch.mockResolvedValueOnce({
+            json: async()=> [
+                {
+                    id: 'p1',
+                    title: 'First post'
+                }
+            ]
+        })
         const listElements = await screen.findAllByRole('listitem');
         expect(listElements).not.toHaveLength(0);
     })
